@@ -1,0 +1,93 @@
+const path = require('path');
+
+module.exports = {
+    mode: "production",
+    devtool: "source-map",
+	entry: "./src/main/ts/app.js",
+	output: {
+		path: path.resolve(__dirname, 'target/classes/static'),
+		filename: "view-service-bundle.js",
+	},
+    resolve: {
+        extensions: [".ts", ".tsx", ".js"]
+    },
+	optimization: {
+        minimize: false
+    },
+    module: {
+		rules: [
+            {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "awesome-typescript-loader"
+                    }
+                ]
+            },
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            }
+        ]
+    },
+    /*externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    }*/
+};
+----
+{
+  "name": "@ubs/view-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.ldn.swissbank.com:AA43595-AQUA/aqua-fastdata-view-service.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.9.15",
+    "@types/react-dom": "^16.9.4",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "jquery-datetimepicker": "^2.5.21",
+    "npm-install-webpack-plugin": "^4.0.5",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
+---
+{
+    "compilerOptions": {
+        "outDir": "target/ts",
+        "sourceMap": true,
+		"allowJs": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+		"lib": ["es6"],
+		"types" : ["react", "react-dom"]
+    },
+	"include": [
+        "src/main/ts/**/*"
+    ],
+	"exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}
